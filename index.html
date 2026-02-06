@@ -74,7 +74,7 @@
     #no {
       background-color: #ccc;
       color: #333;
-      left: 20%;
+      position: absolute;
     }
 
     /* Floating hearts */
@@ -179,14 +179,28 @@
 
     function moveNoButton() {
       attempts++;
-
-      const x = Math.random() * 500 - 150;
-      const y = Math.random() * 300 - 75;
-
-      noButton.style.transform = `translate(${x}px, ${y}px) scale(${1 - attempts * 0.01})`;
-      noButton.textContent = noTexts[Math.min(attempts, noTexts.length - 1)];
-
-      scaleYes += 0.05;
+    
+      const container = document.querySelector(".buttons");
+    
+      const containerRect = container.getBoundingClientRect();
+      const buttonRect = noButton.getBoundingClientRect();
+    
+      const maxX = containerRect.width - buttonRect.width;
+      const maxY = containerRect.height - buttonRect.height;
+    
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+    
+      const noScale = Math.max(0.4, 1 - attempts * 0.02);
+    
+      noButton.style.left = `${x}px`;
+      noButton.style.top = `${y}px`;
+      noButton.style.transform = `scale(${noScale})`;
+    
+      noButton.textContent =
+        noTexts[attempts % noTexts.length];
+    
+      scaleYes += 0.01;
       yesButton.style.transform = `scale(${scaleYes})`;
     }
     
@@ -229,6 +243,7 @@
 
 </body>
 </html>
+
 
 
 
