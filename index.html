@@ -27,7 +27,7 @@
 
     .card {
       background: white;
-      padding: 200px;
+      padding: 120px 140px;
       border-radius: 20px;
       text-align: center;
       box-shadow: 0 15px 40px rgba(0,0,0,0.25);
@@ -50,9 +50,12 @@
     }
 
     .buttons {
-      margin-top: 30px;
+      margin-top: 40px;
       position: relative;
-      height: 70px;
+      width: 320px;
+      height: 120px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     button {
@@ -69,18 +72,21 @@
       background-color: #ff4d6d;
       color: white;
       left: 20%;
+      transform: scale(0.5);
+    }
+
+    #yes:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      filter: grayscale(50%);
     }
 
     #no {
       background-color: #ccc;
       color: #333;
-      position: absolute;
+      left: 55%;
+      top: 40%;
     }
-
-    yesButton.disabled = true;
-    yesButton.style.opacity = "0.6";
-    yesButton.style.cursor = "not-allowed";
-
 
     /* Floating hearts */
     .heart {
@@ -100,118 +106,77 @@
         transform: translateY(-10vh);
         opacity: 1;
       }
-    
+    }
   </style>
 </head>
+
 <body>
 
   <div class="card">
     <h1>Will you be my Valentine? 💘</h1>
-    <p>I hope you don't have to many options)) </p>
+    <p>I hope you don't have too many options 😌</p>
 
     <div class="buttons">
-      <button id="yes">Yes 💖</button>
+      <button id="yes" disabled>Yes 💖</button>
       <button id="no">No 🙃</button>
     </div>
   </div>
 
-  <!-- Optional music (uncomment if you want) -->
-  <!--
-  <audio autoplay loop>
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
-  -->
-
   <script>
     const noButton = document.getElementById("no");
     const yesButton = document.getElementById("yes");
+    const container = document.querySelector(".buttons");
 
     let attempts = 0;
-    let scaleYes = 0.05;
+    let scaleYes = 0.5;
+
+    const YES_UNLOCK_SCALE = 1.3;
 
     const noTexts = [
-      "No 🙃",
-      "Are you sure? 😏",
-      "Try again 😜",
-      "Nice try 😈",
-      "Still no? 😅",
-      "Hmm… interesting choice 🤔",
-      "That button seems broken 😶",
-      "Oops, missed it 😌",
-      "You’re getting warmer 😏",
-      "Almost had it 😜",
-      "Persistence detected 🧐",
-      "Bold of you to try again 😈",
-      "This is becoming personal 😂",
-      "I admire the confidence 😅",
-      "Nope. Still no 😌",
-      "Why are you like this? 😭",
-      "You know what the answer is 💘",
-      "This is fate at this point 😏",
-      "Just click Yes already 😜",
-      "I’m literally running away 😱",
-      "Do you enjoy suffering? 😂",
-      "Okay wow, impressive dedication 👏",
-      "You’re testing the universe 😈",
-      "The Yes button looks comfy 😌",
-      "We both know how this ends 💕",
-      "Destiny says ‘Yes’ 😏",
-      "Free hugs if you click Yes 🤗",
-      "Last chance 😳",
-      "Final warning ⚠️",
-      "Error 404: No not found 😈",
-      "Alright, you win… just kidding 😜",
-      "This button is tired 😩",
-      "I’m doing cardio now 🏃‍♂️",
-      "STOP CHASING ME 😭",
-      "Please click Yes 😅",
-      "I can do this all day 😈",
-      "You’re very determined 😂",
-      "Okay this is romantic now 💘",
-      "The universe ships this 💫",
-      "Just accept your destiny 😌",
-      "Resistance is futile 🤖",
-      "Love always wins 💕",
-      "Fine… but not really 😏",
-      "I believe in you ❤️",
-      "Yes is the only way out 😈",
-      "This is your sign ✨",
-      "Don’t overthink it 😜",
-      "You made it this far 😌",
-      "CLICK. YES. 😤",
-      "💘"
+      "No 🙃","Are you sure? 😏","Try again 😜","Nice try 😈","Still no? 😅",
+      "Hmm… interesting choice 🤔","That button seems broken 😶","Oops, missed it 😌",
+      "You’re getting warmer 😏","Almost had it 😜","Persistence detected 🧐",
+      "Bold of you to try again 😈","This is becoming personal 😂",
+      "I admire the confidence 😅","Nope. Still no 😌","Why are you like this? 😭",
+      "You know what the answer is 💘","This is fate at this point 😏",
+      "Just click Yes already 😜","I’m literally running away 😱",
+      "Do you enjoy suffering? 😂","Okay wow, impressive dedication 👏",
+      "The Yes button looks comfy 😌","We both know how this ends 💕",
+      "Destiny says ‘Yes’ 😏","Free hugs if you click Yes 🤗",
+      "Final warning ⚠️","Error 404: No not found 😈",
+      "STOP CHASING ME 😭","CLICK. YES. 😤","💘"
     ];
 
     function moveNoButton() {
       attempts++;
-    
-      const container = document.querySelector(".buttons");
-    
+
       const containerRect = container.getBoundingClientRect();
       const buttonRect = noButton.getBoundingClientRect();
-    
+
       const maxX = containerRect.width - buttonRect.width;
       const maxY = containerRect.height - buttonRect.height;
-    
+
       const x = Math.random() * maxX;
       const y = Math.random() * maxY;
-    
+
       const noScale = Math.max(0.4, 1 - attempts * 0.02);
-    
+
       noButton.style.left = `${x}px`;
       noButton.style.top = `${y}px`;
       noButton.style.transform = `scale(${noScale})`;
-    
-      noButton.textContent =
-        noTexts[attempts % noTexts.length];
-    
-      scaleYes += 0.01;
+      noButton.textContent = noTexts[attempts % noTexts.length];
+
+      scaleYes += 0.05;
       yesButton.style.transform = `scale(${scaleYes})`;
+
+      if (scaleYes >= YES_UNLOCK_SCALE) {
+        yesButton.disabled = false;
+      }
     }
-    
+
     noButton.addEventListener("mouseover", moveNoButton);
     noButton.addEventListener("touchstart", moveNoButton);
-    
+
     yesButton.addEventListener("click", () => {
       document.body.innerHTML = `
         <div style="
@@ -222,9 +187,8 @@
           background:linear-gradient(135deg, #ff9a9e, #fad0c4);
           font-family:'Pacifico', cursive;
           text-align:center;
-          overflow:hidden;
         ">
-          <h1 style="color:#ff4d6d;">
+          <h1 style="color:#ff4d6d;font-size:3em;">
             YAY!!! 💕<br>
             Best decision ever 😘
           </h1>
@@ -232,7 +196,6 @@
       `;
     });
 
-    /* Create floating hearts */
     setInterval(() => {
       const heart = document.createElement("div");
       heart.className = "heart";
@@ -243,24 +206,7 @@
 
       setTimeout(() => heart.remove(), 6000);
     }, 400);
-    
   </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
