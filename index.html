@@ -85,6 +85,16 @@
       animation: floatUp 6s linear infinite;
       opacity: 0.7;
     }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(-10vh);
+        opacity: 1;
+      }
     
   </style>
 </head>
@@ -92,7 +102,7 @@
 
   <div class="card">
     <h1>Will you be my Valentine? 💘</h1>
-    <p>I promise snacks, adventure and lots of love 🥰</p>
+    <p>I hope you don't have to many options)) </p>
 
     <div class="buttons">
       <button id="yes">Yes 💖</button>
@@ -100,17 +110,45 @@
     </div>
   </div>
 
+  <!-- Optional music (uncomment if you want) -->
+  <!--
+  <audio autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+  -->
+
   <script>
     const noButton = document.getElementById("no");
     const yesButton = document.getElementById("yes");
 
-    noButton.addEventListener("mouseover", () => {
-      const x = Math.random() * 400 - 150;
-      const y = Math.random() * 200 - 50;
+    let attempts = 0;
+    let scaleYes = 1;
 
-      noButton.style.transform = `translate(${x}px, ${y}px)`;
-    });
+    const noTexts = [
+      "No 🙃",
+      "Are you sure? 😏",
+      "Try again 😜",
+      "Nice try 😈",
+      "Still no? 😅",
+      "Okay this is funny 😂"
+    ];
 
+    function moveNoButton() {
+      attempts++;
+
+      const x = Math.random() * 300 - 150;
+      const y = Math.random() * 150 - 75;
+
+      noButton.style.transform = `translate(${x}px, ${y}px) scale(${1 - attempts * 0.05})`;
+      noButton.textContent = noTexts[Math.min(attempts, noTexts.length - 1)];
+
+      scaleYes += 0.1;
+      yesButton.style.transform = `scale(${scaleYes})`;
+    }
+    
+    noButton.addEventListener("mouseover", moveNoButton);
+    noButton.addEventListener("touchstart", moveNoButton);
+    
     yesButton.addEventListener("click", () => {
       document.body.innerHTML = `
         <div style="
@@ -133,6 +171,7 @@
 
 </body>
 </html>
+
 
 
 
