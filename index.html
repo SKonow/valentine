@@ -122,7 +122,7 @@
     const yesButton = document.getElementById("yes");
 
     let attempts = 0;
-    let scaleYes = 0.5;
+    let scaleYes = 0.05;
 
     const noTexts = [
       "No 🙃",
@@ -180,13 +180,13 @@
     function moveNoButton() {
       attempts++;
 
-      const x = Math.random() * 300 - 150;
-      const y = Math.random() * 150 - 75;
+      const x = Math.random() * 500 - 150;
+      const y = Math.random() * 300 - 75;
 
       noButton.style.transform = `translate(${x}px, ${y}px) scale(${1 - attempts * 0.05})`;
       noButton.textContent = noTexts[Math.min(attempts, noTexts.length - 1)];
 
-      scaleYes += 0.1;
+      scaleYes += 0.05;
       yesButton.style.transform = `scale(${scaleYes})`;
     }
     
@@ -229,6 +229,7 @@
 
 </body>
 </html>
+
 
 
 
