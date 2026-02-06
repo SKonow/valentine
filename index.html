@@ -9,7 +9,7 @@
 
   <style>
     body {
-      height: 100vh;
+      height: 200vh;
       margin: 0;
       display: flex;
       align-items: center;
@@ -18,6 +18,11 @@
       font-family: 'Pacifico', cursive;
       overflow: hidden;
       animation: bgMove 10s infinite alternate;
+    }
+
+    @keyframes bgMove {
+      from { background-position: 0% 50%; }
+      to { background-position: 100% 50%; }
     }
 
     .card {
@@ -105,6 +110,7 @@
 
 </body>
 </html>
+
 
 
 
